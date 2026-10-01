@@ -1,0 +1,7 @@
+*.pt
+datos/
+modelos/
+dataset_cc/
+config.yaml
+__pycache__/
+runs/

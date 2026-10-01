@@ -1,0 +1,31 @@
+# Configuración de visión para MosaicOS
+# Copia este archivo como config.yaml y ajusta los datos de tu rancho.
+
+modelo: yolo11s.pt          # cambiar por el modelo propio cuando se entrene con fotos del rancho
+confianza: 0.25             # más bajo = detecta más (y se equivoca más)
+bitacora: datos/eventos.jsonl
+
+mosaicos:
+  webhook_url:              # URL de MosaicOS que recibe los eventos (vacío = solo bitácora local)
+  token:                    # clave de acceso, si MosaicOS la pide
+
+camaras:
+  - nombre: potrero-norte
+    potrero: norte
+    # Cámara AV380/V380 en la red local. La ruta exacta varía por modelo;
+    # las más comunes son /live/ch00_0 (calidad alta) y /live/ch00_1 (baja).
+    url: rtsp://usuario:contraseña@192.168.1.50:554/live/ch00_0
+    acomodo: "2+1"          # dos paneles arriba y uno abajo
+    # Paneles que ven la misma zona (se toma el máximo, no la suma)
+    grupos_solapados:
+      - [arriba_izq, arriba_der]
+      - [abajo]
+    # Zona del panel de abajo donde está el pasto (fracciones x0, y0, x1, y1)
+    zona_pasto: [0.0, 0.55, 1.0, 1.0]
+    # Verdor del potrero cuando estaba en punto (se llena con el comando "referencia")
+    verdor_referencia:
+
+reglas_potrero:
+  descanso_minimo_dias: 30
+  descanso_maximo_dias: 60
+  recuperacion_objetivo: 0.9
